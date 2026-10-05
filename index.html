@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Oshi Bonanza Drop ✨ - JKT48 Fandom Mini Game</title>
+  <title>Oshi Bonanza Drop ✨ - JKT48 Fandom Edition</title>
   
   <!-- Google Font: Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,18 +12,19 @@
 
   <style>
     /* ==========================================================================
-       CSS VARIABLES & THEME (Pastel Neon JKT48 Vibe)
+       1. CSS VARIABLES & BASE STYLES
        ========================================================================== */
     :root {
-      --primary-pink: #ff2a8d;
-      --pastel-pink: #ffb8d9;
-      --pastel-purple: #c48bfe;
-      --neon-gold: #ffe600;
-      --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a1c4fd 100%);
+      --primary-pink: #ff1493;
+      --neon-magenta: #e0007b;
+      --pastel-purple: #9d4edd;
+      --accent-gold: #ffc107;
+      --accent-green: #00e676;
+      --bg-gradient: linear-gradient(165deg, #ff9a9e 0%, #fecfef 40%, #c471ed 80%, #a1c4fd 100%);
       --glass-bg: rgba(255, 255, 255, 0.28);
-      --glass-border: rgba(255, 255, 255, 0.55);
-      --glass-shadow: 0 8px 32px 0 rgba(255, 42, 141, 0.25);
-      --text-dark: #2d133b;
+      --glass-border: rgba(255, 255, 255, 0.6);
+      --glass-shadow: 0 10px 35px rgba(224, 0, 123, 0.25);
+      --text-dark: #2a0845;
     }
 
     * {
@@ -43,100 +44,91 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 12px;
+      padding: 8px;
       overflow-x: hidden;
     }
 
-    /* Background Floating Sparkles Effect */
     .bg-sparkles {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       pointer-events: none;
       z-index: 0;
       background-image: 
-        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.6) 2px, transparent 2px),
-        radial-gradient(circle at 90% 80%, rgba(255, 42, 141, 0.4) 3px, transparent 3px),
-        radial-gradient(circle at 50% 50%, rgba(255, 230, 0, 0.5) 2px, transparent 2px);
-      background-size: 80px 80px;
-      animation: floatSparkles 20s linear infinite;
+        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.7) 2px, transparent 2px),
+        radial-gradient(circle at 85% 75%, rgba(255, 20, 147, 0.4) 3px, transparent 3px),
+        radial-gradient(circle at 50% 40%, rgba(255, 230, 0, 0.5) 2px, transparent 2px);
+      background-size: 70px 70px;
+      animation: floatBg 25s linear infinite;
     }
 
-    @keyframes floatSparkles {
+    @keyframes floatBg {
       from { background-position: 0 0; }
-      to { background-position: 80px 160px; }
+      to { background-position: 70px 140px; }
     }
 
-    /* Container Utama */
     .app-container {
       width: 100%;
-      max-width: 580px;
+      max-width: 480px;
       position: relative;
       z-index: 1;
     }
 
-    /* Glassmorphism Card Base */
     .glass-card {
       background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border: 2px solid var(--glass-border);
-      border-radius: 24px;
+      border-radius: 26px;
       box-shadow: var(--glass-shadow);
-      padding: 20px;
+      padding: 16px;
       text-align: center;
-      transition: all 0.3s ease;
     }
 
-    /* Header Logo & Badges */
+    /* Badge & Titles */
     .game-logo-badge {
       display: inline-block;
       background: linear-gradient(90deg, var(--primary-pink), var(--pastel-purple));
       color: #fff;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
       letter-spacing: 1.5px;
-      padding: 4px 14px;
+      padding: 4px 12px;
       border-radius: 20px;
       text-transform: uppercase;
-      box-shadow: 0 3px 10px rgba(255, 42, 141, 0.4);
-      margin-bottom: 6px;
-    }
-
-    .main-title {
-      font-size: 26px;
-      font-weight: 900;
-      color: #fff;
-      text-shadow: 0 2px 10px rgba(255, 42, 141, 0.6), 0 0 20px rgba(255, 255, 255, 0.8);
-      letter-spacing: -0.5px;
-      line-height: 1.2;
+      box-shadow: 0 3px 10px rgba(255, 20, 147, 0.4);
       margin-bottom: 4px;
     }
 
+    .main-title {
+      font-size: 24px;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(224, 0, 123, 0.7), 0 0 20px rgba(255, 255, 255, 0.8);
+      line-height: 1.2;
+    }
+
     .sub-title {
-      font-size: 12px;
-      color: #4a215d;
+      font-size: 11px;
+      color: #4a1942;
       font-weight: 600;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     /* ==========================================================================
-       FASE 1: LAYAR PERSIAPAN (SETUP SCREEN)
+       2. FASE 1: LAYAR SETUP (UPLOAD FOTO OSHI)
        ========================================================================== */
     .upload-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      margin: 16px 0;
+      gap: 6px;
+      margin: 14px 0;
     }
 
     .upload-box {
       aspect-ratio: 1 / 1.25;
-      background: rgba(255, 255, 255, 0.45);
-      border: 2px dashed rgba(255, 42, 141, 0.5);
-      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 2px dashed rgba(255, 20, 147, 0.5);
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -144,18 +136,18 @@
       cursor: pointer;
       position: relative;
       overflow: hidden;
-      transition: all 0.25s ease;
+      transition: all 0.2s;
     }
 
     .upload-box:hover {
-      transform: translateY(-3px);
-      background: rgba(255, 255, 255, 0.7);
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.8);
       border-color: var(--primary-pink);
     }
 
     .upload-box.filled {
       border-style: solid;
-      border-color: #2ed573;
+      border-color: var(--accent-green);
     }
 
     .upload-box img {
@@ -163,30 +155,21 @@
       height: 100%;
       object-fit: cover;
       position: absolute;
-      top: 0;
-      left: 0;
+      inset: 0;
     }
 
-    .upload-icon {
-      font-size: 20px;
-      margin-bottom: 4px;
-    }
-
-    .upload-label {
-      font-size: 9px;
-      font-weight: 700;
-      color: #6a3480;
-    }
+    .upload-icon { font-size: 18px; }
+    .upload-label { font-size: 8.5px; font-weight: 800; color: #6a1b9a; margin-top: 2px; }
 
     .check-badge {
       position: absolute;
-      top: 4px;
-      right: 4px;
-      background: #2ed573;
+      top: 3px;
+      right: 3px;
+      background: var(--accent-green);
       color: white;
-      font-size: 10px;
-      width: 16px;
-      height: 16px;
+      font-size: 9px;
+      width: 15px;
+      height: 15px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -195,158 +178,148 @@
     }
 
     .quick-preset-btn {
-      background: rgba(255, 255, 255, 0.6);
-      border: 1px solid rgba(255, 42, 141, 0.4);
-      color: #901b5a;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1.5px solid rgba(255, 20, 147, 0.4);
+      color: #880e4f;
       font-size: 11px;
       font-weight: 700;
-      padding: 8px 14px;
+      padding: 7px 14px;
       border-radius: 12px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       transition: all 0.2s;
     }
 
-    .quick-preset-btn:hover {
-      background: #fff;
-      transform: scale(1.03);
-    }
+    .quick-preset-btn:hover { background: #fff; transform: scale(1.02); }
 
-    /* Tombol Utama */
     .btn-main {
       width: 100%;
-      background: linear-gradient(90deg, #ff2a8d, #ff6b6b);
+      background: linear-gradient(90deg, #ff1493, #ff6b81);
       color: white;
       border: none;
-      padding: 14px 20px;
-      font-size: 16px;
+      padding: 13px 18px;
+      font-size: 15px;
       font-weight: 800;
-      border-radius: 18px;
+      border-radius: 16px;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(255, 42, 141, 0.45);
+      box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      transition: all 0.25s;
-    }
-
-    .btn-main:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(255, 42, 141, 0.6);
-    }
-
-    .btn-main:active:not(:disabled) {
-      transform: scale(0.97);
+      gap: 8px;
+      transition: all 0.2s;
     }
 
     .btn-main:disabled {
-      background: #d4b8cc;
+      background: #cfb9c6;
       cursor: not-allowed;
       box-shadow: none;
-      opacity: 0.7;
     }
 
     /* ==========================================================================
-       FASE 2: LAYAR PERMAINAN (GAMEPLAY SCREEN)
+       3. FASE 2: LAYAR GAMEPLAY
        ========================================================================== */
-    .gameplay-wrapper {
-      display: none;
-    }
+    .gameplay-wrapper { display: none; }
 
     /* Top Stats Bar */
     .stats-bar {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
-      gap: 10px;
-      margin-bottom: 12px;
+      gap: 8px;
+      margin-bottom: 8px;
     }
 
     .stat-pill {
-      background: rgba(255, 255, 255, 0.5);
-      border: 1.5px solid rgba(255, 255, 255, 0.8);
-      border-radius: 16px;
-      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1.5px solid rgba(255, 255, 255, 0.85);
+      border-radius: 14px;
+      padding: 6px 10px;
       text-align: left;
     }
 
     .stat-title {
-      font-size: 10px;
-      font-weight: 700;
-      color: #6d337d;
+      font-size: 9px;
+      font-weight: 800;
+      color: #6a1b9a;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
     .stat-value {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 900;
       color: var(--primary-pink);
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
 
-    .stat-value.gold {
-      color: #c98200;
-    }
+    .stat-value.gold { color: #d88900; }
 
-    /* Tombol Navigasi Mini di Atas */
     .top-actions {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .action-btn-sm {
-      background: rgba(255, 255, 255, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      font-size: 11px;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      font-size: 10.5px;
       font-weight: 700;
-      color: #63226a;
-      padding: 5px 10px;
-      border-radius: 10px;
+      color: #4a148c;
+      padding: 4px 9px;
+      border-radius: 9px;
       cursor: pointer;
     }
 
-    /* Arena Grid 6 Kolom x 5 Baris */
-    .grid-container {
-      background: rgba(0, 0, 0, 0.12);
-      border: 3px solid rgba(255, 255, 255, 0.6);
-      border-radius: 18px;
+    /* Encore Free Spins Mode Banner */
+    .encore-banner {
+      display: none;
+      background: linear-gradient(90deg, #ff007f, #ffe600);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
       padding: 6px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+      animation: pulseLight 1s infinite alternate;
+    }
+
+    /* Grid Arena 6x5 */
+    .grid-container {
+      background: rgba(0, 0, 0, 0.15);
+      border: 2.5px solid rgba(255, 255, 255, 0.7);
+      border-radius: 16px;
+      padding: 5px;
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: 5px;
-      margin-bottom: 14px;
-      box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.15);
+      gap: 4px;
+      margin-bottom: 10px;
+      box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.2);
       position: relative;
     }
 
-    /* Kolom Vertikal untuk Mekanisme Tumble */
     .grid-column {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 4px;
     }
 
-    /* Cell Gambar Oshi & Simbol Lightstick */
     .grid-cell {
       aspect-ratio: 1 / 1;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.8);
-      border: 2px solid #ffffff;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1.5px solid #ffffff;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       overflow: hidden;
-      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: transform 0.2s ease;
     }
 
     .grid-cell img {
@@ -356,7 +329,20 @@
       pointer-events: none;
     }
 
-    /* Desain Khusus Simbol Lightstick Multiplier */
+    /* Simbol Spesial: Scatter Mikrofon Emas & Lightstick Multiplier Langka */
+    .scatter-symbol {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle, #fff9c4 10%, #ffd54f 90%);
+      animation: pulseLight 1.5s infinite;
+    }
+    .scatter-symbol .icon { font-size: 20px; line-height: 1; }
+    .scatter-symbol .tag { font-size: 8px; font-weight: 900; color: #b78103; margin-top: 1px; }
+
     .lightstick-symbol {
       width: 100%;
       height: 100%;
@@ -364,76 +350,53 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle, #fff7b2 10%, #ff80bf 90%);
       position: relative;
-      animation: pulseLight 1.8s infinite ease-in-out;
     }
 
-    .ls-icon {
-      font-size: 20px;
-      line-height: 1;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-    }
+    .lightstick-symbol.tier-low { background: radial-gradient(circle, #b9f6ca, #00c853); }
+    .lightstick-symbol.tier-mid { background: radial-gradient(circle, #80d8ff, #0091ea); }
+    .lightstick-symbol.tier-high { background: radial-gradient(circle, #ea80fc, #aa00ff); }
+    .lightstick-symbol.tier-ultra { background: radial-gradient(circle, #fff59d, #ff6d00); animation: pulseLight 0.8s infinite; }
 
+    .ls-icon { font-size: 19px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
     .ls-badge {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 900;
       color: #fff;
-      background: #ff0055;
-      padding: 1px 5px;
-      border-radius: 8px;
-      border: 1px solid #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1px 4px;
+      border-radius: 6px;
       margin-top: 2px;
+      border: 1px solid #fff;
     }
 
-    /* Animasi Jatuh (Drop) & Pecah (Pop) */
-    .anim-drop {
-      animation: dropDown 0.32s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    }
+    /* Animasi Drop & Pop */
+    .anim-drop { animation: dropDown 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+    .anim-drop-fast { animation: dropDown 0.15s linear forwards; }
+    .anim-drop-turbo { animation: dropDown 0.06s linear forwards; }
 
     @keyframes dropDown {
-      0% {
-        transform: translateY(-80px) scale(0.85);
-        opacity: 0;
-      }
-      100% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
+      0% { transform: translateY(-70px) scale(0.8); opacity: 0; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
     }
 
-    .anim-pop {
-      animation: popBurst 0.38s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
-      z-index: 10;
-    }
-
+    .anim-pop { animation: popBurst 0.35s ease-out forwards; z-index: 10; }
     @keyframes popBurst {
-      0% {
-        transform: scale(1);
-        box-shadow: 0 0 10px #ff2a8d;
-      }
-      40% {
-        transform: scale(1.3);
-        box-shadow: 0 0 25px #ffe600;
-        filter: brightness(1.4);
-      }
-      100% {
-        transform: scale(0);
-        opacity: 0;
-      }
+      0% { transform: scale(1); filter: brightness(1); }
+      40% { transform: scale(1.3); filter: brightness(1.5); box-shadow: 0 0 20px #ffe600; }
+      100% { transform: scale(0); opacity: 0; }
     }
 
     @keyframes pulseLight {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); filter: brightness(1.15); }
+      50% { transform: scale(1.08); filter: brightness(1.18); }
     }
 
     /* Floating Point Notifikasi */
     .floating-points {
       position: absolute;
       pointer-events: none;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 900;
       color: #fff;
       background: linear-gradient(90deg, #ff007f, #ff9900);
@@ -452,7 +415,6 @@
       100% { opacity: 0; transform: translate(-50%, -45px) scale(0.8); }
     }
 
-    /* Multiplier Banner Popup */
     .multiplier-banner {
       position: absolute;
       top: 50%;
@@ -460,126 +422,318 @@
       transform: translate(-50%, -50%) scale(0);
       background: linear-gradient(135deg, #ffe600, #ff007f);
       color: white;
-      padding: 12px 24px;
-      border-radius: 20px;
+      padding: 10px 22px;
+      border-radius: 18px;
       border: 3px solid #fff;
-      box-shadow: 0 0 35px rgba(255, 230, 0, 0.8);
+      box-shadow: 0 0 35px rgba(255, 230, 0, 0.9);
       font-weight: 900;
-      font-size: 20px;
+      font-size: 19px;
       z-index: 100;
       pointer-events: none;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
+    .multiplier-banner.show { transform: translate(-50%, -50%) scale(1); }
 
-    .multiplier-banner.show {
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    /* Tombol Spin Besar */
-    .spin-btn-container {
+    /* ==========================================================================
+       4. BOTTOM CONTROL BAR (Mengikuti Layout Presisi Gambar)
+       ========================================================================== */
+    .bottom-controls-panel {
+      background: rgba(0, 0, 0, 0.22);
+      border: 1.5px solid rgba(255, 255, 255, 0.5);
+      border-radius: 20px;
+      padding: 10px 14px;
       margin-top: 6px;
     }
 
-    .btn-spin {
-      width: 100%;
-      background: linear-gradient(135deg, #ff007f, #9d4edd);
+    /* Baris Atas: Pengaturan Chant & Tombol Spin Utama */
+    .spin-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* Pengatur Level Chant (- & +) */
+    .chant-adjuster {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.4);
+      padding: 4px 8px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .adjust-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #4a148c;
       color: #fff;
-      border: 3px solid #ffffff;
-      padding: 16px;
-      font-size: 20px;
+      border: 2px solid #fff;
+      font-size: 18px;
       font-weight: 900;
-      letter-spacing: 1px;
-      border-radius: 22px;
-      cursor: pointer;
-      box-shadow: 0 8px 25px rgba(255, 0, 127, 0.45);
-      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .adjust-btn:active:not(:disabled) { transform: scale(0.9); }
+    .adjust-btn:disabled { background: #999; opacity: 0.5; }
+
+    .chant-info {
+      text-align: center;
+      min-width: 65px;
+    }
+    .chant-info span { display: block; font-size: 8px; font-weight: 700; color: #3b0649; text-transform: uppercase; }
+    .chant-info strong { font-size: 13px; font-weight: 900; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+
+    /* Tombol Spin Lingkaran Besar */
+    .circular-spin-btn {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ff2a8d 20%, #9d4edd 100%);
+      border: 3.5px solid #ffffff;
+      box-shadow: 0 6px 20px rgba(255, 20, 147, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      position: relative;
+      transition: all 0.2s;
     }
 
-    .btn-spin:hover:not(:disabled) {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(255, 0, 127, 0.6);
-      filter: brightness(1.1);
+    .circular-spin-btn:hover:not(:disabled) { transform: scale(1.06); filter: brightness(1.1); }
+    .circular-spin-btn:active:not(:disabled) { transform: scale(0.94); }
+    .circular-spin-btn:disabled { background: #7f7281; cursor: not-allowed; box-shadow: none; }
+
+    .spin-icon { font-size: 26px; line-height: 1; }
+    .spin-subtext { font-size: 8px; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase; }
+
+    /* Tombol Stop Auto Spin */
+    .circular-spin-btn.btn-stop {
+      background: radial-gradient(circle, #ff1744 20%, #b71c1c 100%);
+      border-color: #ffebee;
+      box-shadow: 0 6px 20px rgba(244, 67, 54, 0.6);
+    }
+    .circular-spin-btn.btn-stop .spin-icon { font-size: 18px; }
+
+    /* Baris Bawah: Shortcut Tombol Auto, Turbo, & Info */
+    .bottom-shortcuts {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
     }
 
-    .btn-spin:active:not(:disabled) {
-      transform: scale(0.96);
-    }
-
-    .btn-spin:disabled {
-      background: #b59eb5;
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
-      opacity: 0.6;
-    }
-
-    .footer-note {
+    .shortcut-btn {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      color: #310842;
       font-size: 10px;
-      font-weight: 600;
-      color: #53245f;
-      margin-top: 10px;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: 0.15s;
     }
 
-    /* Modal Pop-up Bantuan */
+    .shortcut-btn.active {
+      background: var(--primary-pink);
+      color: #fff;
+      border-color: #fff;
+      box-shadow: 0 2px 8px rgba(255, 20, 147, 0.5);
+    }
+
+    .status-hint {
+      font-size: 10px;
+      font-weight: 700;
+      color: #430c50;
+      margin-top: 6px;
+    }
+
+    /* ==========================================================================
+       5. MODAL PENGATURAN MAIN OTOMATIS (Sesuai Referensi Gambar)
+       ========================================================================== */
     .modal-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(4px);
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(6px);
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 200;
+      z-index: 300;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s;
+      transition: opacity 0.25s;
       padding: 16px;
     }
 
-    .modal-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
 
-    .modal-content {
-      background: #fff;
-      border-radius: 20px;
-      padding: 20px;
-      max-width: 400px;
+    .auto-config-modal {
+      background: #190a24;
+      border: 2px solid #ff2a8d;
+      border-radius: 22px;
       width: 100%;
-      text-align: left;
-      font-size: 12px;
-      color: #333;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      max-width: 380px;
+      padding: 20px;
+      color: #fff;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+      position: relative;
     }
 
-    .modal-content h3 {
-      font-size: 16px;
-      color: var(--primary-pink);
+    .modal-header-title {
+      font-size: 15px;
+      font-weight: 900;
+      color: #ffd166;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .close-modal-x {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      font-size: 20px;
+      color: #aaa;
+      cursor: pointer;
+    }
+
+    /* Toggles Grid (Turbo, Cepat, Lewati Layar) */
+    .toggle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .toggle-box {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 10px 6px;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+
+    .toggle-box.checked {
+      border-color: #00e676;
+      background: rgba(0, 230, 118, 0.15);
+    }
+
+    .custom-checkbox {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: transparent;
+    }
+
+    .toggle-box.checked .custom-checkbox {
+      background: #00e676;
+      border-color: #00e676;
+      color: #000;
+      font-weight: 900;
+    }
+
+    .toggle-label {
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    /* Slider Jumlah Spin Otomatis */
+    .slider-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: #bbb;
+      text-transform: uppercase;
       margin-bottom: 8px;
     }
 
-    .modal-content ul {
-      padding-left: 18px;
-      margin-bottom: 14px;
+    .slider-control-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
     }
 
-    .modal-content li {
-      margin-bottom: 6px;
+    .slider-range {
+      flex: 1;
+      accent-color: #00e676;
+      cursor: pointer;
+      height: 6px;
     }
 
-    /* Responsif HP Layar Kecil */
+    .slider-value-badge {
+      background: #00e676;
+      color: #000;
+      font-size: 15px;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 8px;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    .btn-start-auto {
+      width: 100%;
+      background: #00e676;
+      color: #000;
+      border: none;
+      padding: 13px;
+      font-size: 15px;
+      font-weight: 900;
+      border-radius: 14px;
+      cursor: pointer;
+      text-transform: uppercase;
+      box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
+      transition: 0.2s;
+    }
+    .btn-start-auto:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+    /* Modal Aturan */
+    .rules-content {
+      background: #fff;
+      color: #333;
+      border-radius: 20px;
+      padding: 20px;
+      max-width: 380px;
+      width: 100%;
+      text-align: left;
+      font-size: 12px;
+    }
+    .rules-content h3 { color: var(--primary-pink); margin-bottom: 8px; font-size: 16px; }
+    .rules-content ul { padding-left: 18px; margin-bottom: 12px; }
+    .rules-content li { margin-bottom: 6px; }
+
     @media (max-width: 380px) {
-      .main-title { font-size: 21px; }
-      .stat-value { font-size: 15px; }
-      .btn-spin { font-size: 17px; padding: 13px; }
+      .main-title { font-size: 20px; }
+      .circular-spin-btn { width: 60px; height: 60px; }
+      .spin-icon { font-size: 22px; }
       .grid-container { gap: 3px; padding: 4px; }
       .grid-column { gap: 3px; }
     }
@@ -587,45 +741,39 @@
 </head>
 <body>
 
-  <!-- Partikel Latar Belakang -->
   <div class="bg-sparkles"></div>
 
   <div class="app-container">
     
     <!-- =====================================================================
-         FASE 1: LAYAR PERSIAPAN (UPLOAD FOTO OSHI)
+         FASE 1: LAYAR SETUP (UPLOAD 5 FOTO OSHI)
          ===================================================================== -->
     <div id="setup-screen" class="glass-card">
       <span class="game-logo-badge">🌸 JKT48 FANDOM MINI-GAME 🌸</span>
       <h1 class="main-title">Oshi Bonanza Drop</h1>
-      <p class="sub-title">Unggah 5 Foto Oshi Favoritmu & Kumpulkan Poin Fandom Terbanyak!</p>
+      <p class="sub-title">Unggah 5 Foto Member/Oshi & Dapatkan Poin Sorakan Terbanyak!</p>
 
       <div class="upload-grid">
-        <!-- 5 Kotak Upload Oshi -->
         <div class="upload-box" id="box-0" onclick="triggerUpload(0)">
           <div class="upload-icon">📸</div>
           <span class="upload-label">Oshi 1</span>
           <input type="file" id="file-0" accept="image/*" style="display:none" onchange="handleFile(0, this)">
         </div>
-
         <div class="upload-box" id="box-1" onclick="triggerUpload(1)">
           <div class="upload-icon">📸</div>
           <span class="upload-label">Oshi 2</span>
           <input type="file" id="file-1" accept="image/*" style="display:none" onchange="handleFile(1, this)">
         </div>
-
         <div class="upload-box" id="box-2" onclick="triggerUpload(2)">
           <div class="upload-icon">📸</div>
           <span class="upload-label">Oshi 3</span>
           <input type="file" id="file-2" accept="image/*" style="display:none" onchange="handleFile(2, this)">
         </div>
-
         <div class="upload-box" id="box-3" onclick="triggerUpload(3)">
           <div class="upload-icon">📸</div>
           <span class="upload-label">Oshi 4</span>
           <input type="file" id="file-3" accept="image/*" style="display:none" onchange="handleFile(3, this)">
         </div>
-
         <div class="upload-box" id="box-4" onclick="triggerUpload(4)">
           <div class="upload-icon">📸</div>
           <span class="upload-label">Oshi 5</span>
@@ -633,20 +781,19 @@
         </div>
       </div>
 
-      <!-- Tombol Preset Cepat (Auto Cute Idols) -->
       <button class="quick-preset-btn" onclick="useQuickPreset()">
         <span>✨</span> Gunakan Avatar Preset Cepat
       </button>
 
       <button id="btn-start" class="btn-main" disabled onclick="startGame()">
-        <span>MULAI KONSER DROP!</span> ➔
+        <span>MASUK ARENA KONSER!</span> ➔
       </button>
 
-      <p class="footer-note">✨ 100% Hiburan Gratis Tanpa Uang Asli. Murni Poin Fandom!</p>
+      <p class="status-hint" style="margin-top:10px;">✨ 100% Bebas Judi & Uang Asli. Murni Hiburan Poin Fandom.</p>
     </div>
 
     <!-- =====================================================================
-         FASE 2: LAYAR PERMAINAN (GAMEPLAY ARENA)
+         FASE 2: LAYAR GAMEPLAY
          ===================================================================== -->
     <div id="game-screen" class="glass-card gameplay-wrapper">
       
@@ -657,19 +804,24 @@
         <button class="action-btn-sm" onclick="openRules()">❓ Aturan</button>
       </div>
 
-      <!-- Header Poin & Info -->
+      <!-- Skor Fandom -->
       <div class="stats-bar">
         <div class="stat-pill">
           <div class="stat-title">Total Poin Fandom</div>
-          <div class="stat-value gold" id="total-points-display">⭐ 0</div>
+          <div class="stat-value gold" id="total-points-display">⭐ 10,000</div>
         </div>
         <div class="stat-pill">
-          <div class="stat-title">Poin Spin Ini</div>
+          <div class="stat-title">Kemenangan Spin</div>
           <div class="stat-value" id="spin-points-display">💖 +0</div>
         </div>
       </div>
 
-      <!-- Grid Arena 6 Kolom x 5 Baris -->
+      <!-- Banner Status Encore Free Spins -->
+      <div id="encore-banner" class="encore-banner">
+        🎤 ENCORE CONCERT! SISA SPIN GRATIS: <span id="encore-spins-left">10</span> 🎤
+      </div>
+
+      <!-- Grid Arena 6x5 -->
       <div class="grid-container" id="grid-arena">
         <div class="grid-column" id="col-0"></div>
         <div class="grid-column" id="col-1"></div>
@@ -679,16 +831,45 @@
         <div class="grid-column" id="col-5"></div>
       </div>
 
-      <!-- Tombol SPIN Oshi -->
-      <div class="spin-btn-container">
-        <button id="btn-spin" class="btn-spin" onclick="executeSpin()">
-          <span>✨</span> SPIN OSHI! <span>✨</span>
-        </button>
+      <!-- Panel Kontrol Bawah (Mengikuti Gambar Referensi) -->
+      <div class="bottom-controls-panel">
+        <div class="spin-row">
+          
+          <!-- Tombol Level Chant / Poin Sorakan (- dan +) -->
+          <div class="chant-adjuster">
+            <button class="adjust-btn" id="btn-minus" onclick="changeChant(-1)">−</button>
+            <div class="chant-info">
+              <span>Chant Sorakan</span>
+              <strong id="chant-level-display">200</strong>
+            </div>
+            <button class="adjust-btn" id="btn-plus" onclick="changeChant(1)">+</button>
+          </div>
+
+          <!-- Tombol Spin / Stop Lingkaran Besar -->
+          <button id="btn-spin-main" class="circular-spin-btn" onclick="handleMainSpinClick()">
+            <div class="spin-icon" id="spin-icon-display">⟳</div>
+            <div class="spin-subtext" id="spin-text-display">SPIN</div>
+          </button>
+
+        </div>
+
+        <!-- Tombol Pintas: Pengaturan Otomatis, Mode Cepat & Turbo -->
+        <div class="bottom-shortcuts">
+          <button class="shortcut-btn" id="btn-auto-modal" onclick="openAutoModal()">
+            🔁 AUTO (<span id="auto-count-badge">OFF</span>)
+          </button>
+          <button class="shortcut-btn" id="btn-quick-toggle" onclick="toggleQuickSpeed()">
+            ⚡ CEPAT
+          </button>
+          <button class="shortcut-btn" id="btn-turbo-toggle" onclick="toggleTurboSpeed()">
+            🚀 TURBO
+          </button>
+        </div>
       </div>
 
-      <p class="footer-note" id="game-status-text">Kumpulkan 8+ Foto Oshi yang sama untuk memecahkan kombo!</p>
+      <p class="status-hint" id="game-status-text">Kumpulkan 8+ Foto Oshi Serupa untuk Memecahkan Kombo!</p>
 
-      <!-- Multiplier Reveal Banner Overlay -->
+      <!-- Banner Multiplier Overlay -->
       <div id="multiplier-banner" class="multiplier-banner">
         LIGHTSTICK COMBO x<span id="mult-banner-val">10</span>!
       </div>
@@ -696,53 +877,102 @@
 
   </div>
 
+  <!-- =====================================================================
+       MODAL PENGATURAN MAIN OTOMATIS (Sesuai Referensi Gambar)
+       ===================================================================== -->
+  <div class="modal-overlay" id="auto-modal">
+    <div class="auto-config-modal">
+      <div class="close-modal-x" onclick="closeAutoModal()">✕</div>
+      <div class="modal-header-title">PENGATURAN MAIN OTOMATIS</div>
+
+      <!-- Toggles: Turbo, Cepat, Lewati Layar -->
+      <div class="toggle-grid">
+        <div class="toggle-box" id="tog-turbo" onclick="toggleModalOption('turbo')">
+          <div class="custom-checkbox" id="chk-turbo">✓</div>
+          <span class="toggle-label">SPIN TURBO</span>
+        </div>
+        <div class="toggle-box" id="tog-quick" onclick="toggleModalOption('quick')">
+          <div class="custom-checkbox" id="chk-quick">✓</div>
+          <span class="toggle-label">SPIN CEPAT</span>
+        </div>
+        <div class="toggle-box checked" id="tog-skip" onclick="toggleModalOption('skip')">
+          <div class="custom-checkbox" id="chk-skip">✓</div>
+          <span class="toggle-label">LEWATI LAYAR</span>
+        </div>
+      </div>
+
+      <!-- Slider Jumlah Spin Otomatis -->
+      <div class="slider-title">JUMLAH SPIN OTOMATIS</div>
+      <div class="slider-control-row">
+        <input type="range" min="10" max="100" step="10" value="50" class="slider-range" id="auto-spin-slider" oninput="updateSliderLabel(this.value)">
+        <div class="slider-value-badge" id="slider-val-badge">50</div>
+      </div>
+
+      <!-- Tombol Konfirmasi Mulai Main Otomatis -->
+      <button class="btn-start-auto" onclick="startAutoSpinsFromModal()">
+        MULAI MAIN OTOMATIS (<span id="btn-auto-val-label">50</span>)
+      </button>
+    </div>
+  </div>
+
   <!-- Modal Aturan Permainan -->
   <div class="modal-overlay" id="rules-modal">
-    <div class="modal-content">
-      <h3>🌸 Cara Bermain Oshi Bonanza</h3>
+    <div class="rules-content">
+      <h3>🌸 Aturan Main Oshi Bonanza</h3>
       <ul>
-        <li><strong>Pay Anywhere:</strong> Jika ada <strong>8 foto oshi yang sama</strong> di grid (posisi mana saja), foto akan pecah menghasilkan Poin Fandom!</li>
-        <li><strong>Tumble / Cascading:</strong> Gambar di atas akan runtuh mengisi ruang kosong dan gambar baru akan jatuh dari atas.</li>
-        <li><strong>Lightstick Multiplier:</strong> Lightstick perkalian (x2, x5, x10, x50, x100) bertahan hingga akhir runtuhan dan melipatgandakan seluruh perolehan poin spin Anda!</li>
+        <li><strong>Pay-Anywhere:</strong> Dapatkan <strong>8+ Foto Oshi yang sama</strong> di posisi mana saja pada arena 6x5 untuk memecahkan poin sorakan!</li>
+        <li><strong>Tumble Berantai:</strong> Foto yang pecah akan runtuh dan simbol baru jatuh dari atas berulang kali hingga tidak ada kombo lagi.</li>
+        <li><strong>Lightstick Multiplier (Langka & Spesial):</strong> Simbol Lightstick (x2 s/d x100) tidak mudah keluar, namun saat muncul di akhir kombo akan melipatgandakan seluruh kemenangan spin!</li>
+        <li><strong>Encore Concert (Scatter 🎤):</strong> Dapatkan 4 atau lebih Mikrofon Emas untuk memicu 10 Putaran Gratis!</li>
       </ul>
-      <button class="btn-main" onclick="closeRules()" style="padding: 8px 15px; font-size: 13px;">Mengerti!</button>
+      <button class="btn-main" onclick="closeRules()" style="padding: 8px 14px; font-size: 12px;">Tutup</button>
     </div>
   </div>
 
   <!-- =====================================================================
-       LOGIKA GAMEPLAY JAVASCRIPT (VANILLA JS MURNI)
+       JAVASCRIPT ENGINE (VANILLA JS MURNI)
        ===================================================================== -->
   <script>
     /* --------------------------------------------------------------------------
-       1. STATE MANAJEMEN & VARIABEL GAME
+       1. STATE & KONFIGURASI GAME
        -------------------------------------------------------------------------- */
     const COLS = 6;
     const ROWS = 5;
-    const TOTAL_CELLS = COLS * ROWS; // 30 Sel
 
     let oshiPhotos = [null, null, null, null, null];
-    let totalFandomPoints = 0;
+    let totalFandomPoints = 10000; // Poin awal fans
     let currentSpinPoints = 0;
     let isSpinning = false;
     let soundEnabled = true;
 
-    // Grid data: 2D Array [col][row]
-    // Tiap sel berisi objek: { type: 'oshi', id: 0..4, src: '...' } ATAU { type: 'lightstick', multiplier: 2..100 }
+    // Chant / Sorakan Levels
+    const CHANT_LEVELS = [100, 200, 400, 800, 1500, 3000];
+    let chantIndex = 1; // Default: 200
+
+    // Mode Kecepatan & Auto Spin
+    let isTurbo = false;
+    let isQuick = false;
+    let isSkipScreen = true;
+    let autoSpinRemaining = 0;
+    let isAutoRunning = false;
+
+    // Mode Encore (Free Spins)
+    let encoreSpinsLeft = 0;
+    let isEncoreMode = false;
+
+    // Grid Data: 2D Array [col][row]
     let gridData = Array(COLS).fill(null).map(() => Array(ROWS).fill(null));
 
     /* --------------------------------------------------------------------------
-       2. SYNTHESIZER AUDIO FX (Web Audio API - Mandiri tanpa file eksternal)
+       2. WEB AUDIO API SYNTHESIZER
        -------------------------------------------------------------------------- */
     let audioCtx = null;
-
     function getAudioContext() {
       if (!audioCtx) {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         audioCtx = new AudioContext();
       }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
       return audioCtx;
     }
 
@@ -753,62 +983,58 @@
         const now = ctx.currentTime;
 
         if (type === 'pop') {
-          // Bubbly marimba pop
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
           osc.type = 'triangle';
-          osc.frequency.setValueAtTime(450, now);
-          osc.frequency.exponentialRampToValueAtTime(900, now + 0.12);
+          osc.frequency.setValueAtTime(500, now);
+          osc.frequency.exponentialRampToValueAtTime(1000, now + 0.1);
           gain.gain.setValueAtTime(0.3, now);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
           osc.connect(gain);
           gain.connect(ctx.destination);
           osc.start(now);
-          osc.stop(now + 0.12);
+          osc.stop(now + 0.1);
         } else if (type === 'drop') {
-          // Soft xylophone thud
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
           osc.type = 'sine';
-          osc.frequency.setValueAtTime(320, now);
-          osc.frequency.exponentialRampToValueAtTime(180, now + 0.08);
-          gain.gain.setValueAtTime(0.2, now);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+          osc.frequency.setValueAtTime(280, now);
+          osc.frequency.exponentialRampToValueAtTime(140, now + 0.06);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
           osc.connect(gain);
           gain.connect(ctx.destination);
           osc.start(now);
-          osc.stop(now + 0.08);
+          osc.stop(now + 0.06);
         } else if (type === 'multiplier') {
-          // Magical glissando chime
           [523.25, 659.25, 783.99, 1046.50, 1318.51].forEach((freq, i) => {
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(freq, now + i * 0.06);
-            gain.gain.setValueAtTime(0.25, now + i * 0.06);
-            gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.06 + 0.3);
+            osc.frequency.setValueAtTime(freq, now + i * 0.05);
+            gain.gain.setValueAtTime(0.25, now + i * 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.05 + 0.25);
             osc.connect(gain);
             gain.connect(ctx.destination);
-            osc.start(now + i * 0.06);
-            osc.stop(now + i * 0.06 + 0.3);
+            osc.start(now + i * 0.05);
+            osc.stop(now + i * 0.05 + 0.25);
           });
         } else if (type === 'win') {
-          // Joyful chord
           [440, 554.37, 659.25, 880].forEach((freq) => {
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
             osc.type = 'triangle';
             osc.frequency.setValueAtTime(freq, now);
             gain.gain.setValueAtTime(0.2, now);
-            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
             osc.connect(gain);
             gain.connect(ctx.destination);
             osc.start(now);
-            osc.stop(now + 0.5);
+            osc.stop(now + 0.4);
           });
         }
       } catch (e) {
-        console.warn('Audio Context error:', e);
+        console.warn('Audio error:', e);
       }
     }
 
@@ -818,7 +1044,7 @@
     }
 
     /* --------------------------------------------------------------------------
-       3. FASE PERSIAPAN: UPLOAD GAMBAR & PRESET SVG CHIBI
+       3. FASE SETUP FOTO & PRESET
        -------------------------------------------------------------------------- */
     function triggerUpload(index) {
       document.getElementById(`file-${index}`).click();
@@ -836,28 +1062,15 @@
       oshiPhotos[index] = src;
       const box = document.getElementById(`box-${index}`);
       box.classList.add('filled');
-      
-      // Update UI preview box
       box.innerHTML = `
         <img src="${src}" alt="Oshi ${index + 1}">
         <div class="check-badge">✓</div>
         <input type="file" id="file-${index}" accept="image/*" style="display:none" onchange="handleFile(${index}, this)">
       `;
-
-      // Cek apakah 5 foto sudah lengkap
-      checkAllPhotosReady();
-    }
-
-    function checkAllPhotosReady() {
       const isComplete = oshiPhotos.every(p => p !== null);
-      const startBtn = document.getElementById('btn-start');
-      startBtn.disabled = !isComplete;
-      if (isComplete) {
-        startBtn.style.animation = 'pulseLight 1.5s infinite';
-      }
+      document.getElementById('btn-start').disabled = !isComplete;
     }
 
-    // Generator SVG Kawaii Avatar agar pengguna bisa langsung mencoba (1-Click Test)
     function generateCutePresetSVG(color, emoji) {
       const svg = `
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
@@ -881,10 +1094,7 @@
         generateCutePresetSVG('#fed6e3', '👑'),
         generateCutePresetSVG('#d4fc79', '🍀')
       ];
-
-      presets.forEach((src, idx) => {
-        setOshiPhoto(idx, src);
-      });
+      presets.forEach((src, idx) => setOshiPhoto(idx, src));
       playSound('multiplier');
     }
 
@@ -892,63 +1102,114 @@
       playSound('win');
       document.getElementById('setup-screen').style.display = 'none';
       document.getElementById('game-screen').style.display = 'block';
-      // Spin awal otomatis saat masuk
-      executeSpin();
+      executeSingleSpin();
     }
 
     function confirmReset() {
-      if (isSpinning) return;
-      if (confirm("Ingin mengganti foto Oshi? Skor akan tetap disimpan.")) {
+      if (isSpinning || isAutoRunning) return;
+      if (confirm("Ganti foto Oshi Anda? Total Poin Fandom akan tetap disimpan.")) {
         document.getElementById('setup-screen').style.display = 'block';
         document.getElementById('game-screen').style.display = 'none';
       }
     }
 
     /* --------------------------------------------------------------------------
-       4. SIMBOL MULTIPLIER & ACZAK SYMBOL
+       4. PENGATURAN KONTROL, SPEED & CHANT
        -------------------------------------------------------------------------- */
-    const MULTIPLIER_VALUES = [2, 5, 10, 50, 100];
-    const MULTIPLIER_WEIGHTS = [0.45, 0.30, 0.18, 0.05, 0.02]; // Peluang kemunculan
-
-    function getRandomMultiplier() {
-      const rand = Math.random();
-      let cum = 0;
-      for (let i = 0; i < MULTIPLIER_WEIGHTS.length; i++) {
-        cum += MULTIPLIER_WEIGHTS[i];
-        if (rand <= cum) return MULTIPLIER_VALUES[i];
-      }
-      return 2;
+    function changeChant(direction) {
+      if (isSpinning || isAutoRunning) return;
+      chantIndex += direction;
+      if (chantIndex < 0) chantIndex = 0;
+      if (chantIndex >= CHANT_LEVELS.length) chantIndex = CHANT_LEVELS.length - 1;
+      
+      document.getElementById('chant-level-display').innerText = CHANT_LEVELS[chantIndex].toLocaleString('id-ID');
+      document.getElementById('btn-minus').disabled = (chantIndex === 0);
+      document.getElementById('btn-plus').disabled = (chantIndex === CHANT_LEVELS.length - 1);
     }
 
-    function generateRandomSymbol() {
-      // 10% peluang jatuh simbol Lightstick Multiplier
-      const isMultiplier = Math.random() < 0.10;
-      if (isMultiplier) {
-        return {
-          type: 'lightstick',
-          multiplier: getRandomMultiplier(),
-          uuid: Math.random()
-        };
-      } else {
-        const oshiId = Math.floor(Math.random() * 5);
-        return {
-          type: 'oshi',
-          id: oshiId,
-          src: oshiPhotos[oshiId],
-          uuid: Math.random()
-        };
-      }
+    function toggleQuickSpeed() {
+      isQuick = !isQuick;
+      if (isQuick && isTurbo) isTurbo = false; // Mutually exclusive
+      updateSpeedButtonsUI();
+    }
+
+    function toggleTurboSpeed() {
+      isTurbo = !isTurbo;
+      if (isTurbo && isQuick) isQuick = false;
+      updateSpeedButtonsUI();
+    }
+
+    function updateSpeedButtonsUI() {
+      document.getElementById('btn-quick-toggle').classList.toggle('active', isQuick);
+      document.getElementById('btn-turbo-toggle').classList.toggle('active', isTurbo);
+      
+      // Update checkmark pada modal
+      document.getElementById('tog-quick').classList.toggle('checked', isQuick);
+      document.getElementById('tog-turbo').classList.toggle('checked', isTurbo);
     }
 
     /* --------------------------------------------------------------------------
-       5. HELPER ASYNC TIMING (Jeda Animasi Mulus)
+       5. SIMBOL & PROBABILITAS (MULTIPLIER DIBUAT LANGKA & MENANTANG)
        -------------------------------------------------------------------------- */
-    const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    // Peluang Multiplier diturunkan (~3.5% per sel)
+    function generateRandomSymbol() {
+      const rand = Math.random();
+
+      // 1. Peluang Scatter Mikrofon (2.0%)
+      if (rand < 0.02) {
+        return { type: 'scatter', uuid: Math.random() };
+      }
+
+      // 2. Peluang Lightstick Multiplier Langka (3.5%)
+      if (rand >= 0.02 && rand < 0.055) {
+        const multRoll = Math.random();
+        let multiplier = 2;
+        let tier = 'tier-low';
+
+        if (multRoll < 0.50) {
+          multiplier = 2;
+          tier = 'tier-low';
+        } else if (multRoll < 0.78) {
+          multiplier = 5;
+          tier = 'tier-mid';
+        } else if (multRoll < 0.92) {
+          multiplier = 10;
+          tier = 'tier-high';
+        } else if (multRoll < 0.98) {
+          multiplier = 25;
+          tier = 'tier-high';
+        } else if (multRoll < 0.995) {
+          multiplier = 50;
+          tier = 'tier-ultra';
+        } else {
+          multiplier = 100; // Super Langka
+          tier = 'tier-ultra';
+        }
+
+        return {
+          type: 'lightstick',
+          multiplier: multiplier,
+          tier: tier,
+          uuid: Math.random()
+        };
+      }
+
+      // 3. Simbol Biasa Foto Oshi (94.5%)
+      const oshiId = Math.floor(Math.random() * 5);
+      return {
+        type: 'oshi',
+        id: oshiId,
+        src: oshiPhotos[oshiId],
+        uuid: Math.random()
+      };
+    }
 
     /* --------------------------------------------------------------------------
        6. RENDER GRID ARENA
        -------------------------------------------------------------------------- */
-    function renderGrid(animateDrop = false) {
+    const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    function renderGrid(animate = false) {
       for (let c = 0; c < COLS; c++) {
         const colEl = document.getElementById(`col-${c}`);
         colEl.innerHTML = '';
@@ -964,9 +1225,16 @@
               const img = document.createElement('img');
               img.src = item.src;
               cellEl.appendChild(img);
+            } else if (item.type === 'scatter') {
+              cellEl.innerHTML = `
+                <div class="scatter-symbol">
+                  <div class="icon">🎤</div>
+                  <div class="tag">ENCORE</div>
+                </div>
+              `;
             } else if (item.type === 'lightstick') {
               cellEl.innerHTML = `
-                <div class="lightstick-symbol">
+                <div class="lightstick-symbol ${item.tier}">
                   <div class="ls-icon">🪄</div>
                   <div class="ls-badge">x${item.multiplier}</div>
                 </div>
@@ -974,9 +1242,16 @@
             }
           }
 
-          if (animateDrop) {
-            cellEl.classList.add('anim-drop');
-            cellEl.style.animationDelay = `${(c * 0.04) + (r * 0.03)}s`;
+          if (animate) {
+            if (isTurbo) {
+              cellEl.classList.add('anim-drop-turbo');
+            } else if (isQuick) {
+              cellEl.classList.add('anim-drop-fast');
+              cellEl.style.animationDelay = `${(c * 0.02)}s`;
+            } else {
+              cellEl.classList.add('anim-drop');
+              cellEl.style.animationDelay = `${(c * 0.04) + (r * 0.025)}s`;
+            }
           }
 
           colEl.appendChild(cellEl);
@@ -985,19 +1260,33 @@
     }
 
     /* --------------------------------------------------------------------------
-       7. MEKANIKA SWEET BONANZA (PAY ANYWHERE & CASCADE TUMBLE LOOP)
+       7. MEKANIKA SWEET BONANZA (PAY-ANYWHERE & CASCADE LOOP)
        -------------------------------------------------------------------------- */
-    async function executeSpin() {
+    async function executeSingleSpin() {
       if (isSpinning) return;
       isSpinning = true;
 
-      // Lock UI
-      document.getElementById('btn-spin').disabled = true;
-      document.getElementById('game-status-text').innerText = 'Konser sedang berlangsung... 🎶';
+      const currentChant = CHANT_LEVELS[chantIndex];
+
+      // Kurangi Poin Sorakan jika bukan dalam Encore Free Spins
+      if (!isEncoreMode) {
+        if (totalFandomPoints < currentChant) {
+          alert("Poin Fandom Anda tidak cukup untuk chant ini! Mengisi bonus poin hiburan...");
+          totalFandomPoints += 5000;
+          updateTotalPointsDisplay();
+        }
+        totalFandomPoints -= currentChant;
+        updateTotalPointsDisplay();
+      } else {
+        encoreSpinsLeft--;
+        document.getElementById('encore-spins-left').innerText = encoreSpinsLeft;
+      }
+
       currentSpinPoints = 0;
       updateSpinPointsDisplay(0);
+      updateMainButtonUI();
 
-      // Langkah 1: Kosongkan dan Isi 30 Simbol Baru (Initial Drop)
+      // 1. Jatuhkan Simbol Baru
       for (let c = 0; c < COLS; c++) {
         for (let r = 0; r < ROWS; r++) {
           gridData[c][r] = generateRandomSymbol();
@@ -1006,144 +1295,154 @@
 
       renderGrid(true);
       playSound('drop');
-      await wait(450);
 
-      // Langkah 2: Looping Tumble (Runtuhan Berantai)
-      let tumbleCount = 0;
+      const dropDelay = isTurbo ? 90 : (isQuick ? 200 : 380);
+      await wait(dropDelay);
+
+      // 2. Looping Tumble / Cascade
       let hasMatches = true;
+      let tumbleCount = 0;
 
       while (hasMatches) {
-        // Hitung frekuensi masing-masing foto oshi di layar (0..4)
+        // Hitung frekuensi masing-masing foto oshi (0..4)
         const counts = [0, 0, 0, 0, 0];
+        let scatterCount = 0;
+
         for (let c = 0; c < COLS; c++) {
           for (let r = 0; r < ROWS; r++) {
             const cell = gridData[c][r];
-            if (cell && cell.type === 'oshi') {
-              counts[cell.id]++;
+            if (cell) {
+              if (cell.type === 'oshi') counts[cell.id]++;
+              if (cell.type === 'scatter') scatterCount++;
             }
           }
         }
 
+        // Cek Scatter Encore Free Spins (>= 4 mikrofon)
+        if (scatterCount >= 4 && !isEncoreMode) {
+          triggerEncoreConcert();
+        }
+
         // Cari Oshi yang jumlahnya >= 8
-        const matchedOshiIds = [];
+        const matchedOshi = [];
         counts.forEach((count, oshiId) => {
-          if (count >= 8) {
-            matchedOshiIds.push({ id: oshiId, count: count });
-          }
+          if (count >= 8) matchedOshi.push({ id: oshiId, count: count });
         });
 
-        if (matchedOshiIds.length > 0) {
+        if (matchedOshi.length > 0) {
           tumbleCount++;
           document.getElementById('game-status-text').innerText = `✨ Kombo Tumble Ke-${tumbleCount}! ✨`;
 
-          // Hitung Poin Berdasarkan Jumlah Simbol
-          let pointsEarnedThisTumble = 0;
-          matchedOshiIds.forEach(match => {
-            let ptsPerSymbol = 10;
-            if (match.count >= 10 && match.count < 12) ptsPerSymbol = 15;
-            if (match.count >= 12) ptsPerSymbol = 25;
-            
-            pointsEarnedThisTumble += match.count * ptsPerSymbol;
+          // Hitung Poin Berdasarkan Jumlah Simbol & Chant Level
+          let pointsGained = 0;
+          matchedOshi.forEach(m => {
+            let mult = 1.0;
+            if (m.count >= 10 && m.count < 12) mult = 1.8;
+            if (m.count >= 12) mult = 3.5;
+            pointsGained += Math.round((currentChant / 5) * mult * m.count);
           });
 
-          currentSpinPoints += pointsEarnedThisTumble;
+          currentSpinPoints += pointsGained;
           updateSpinPointsDisplay(currentSpinPoints);
 
-          // Animasi Pecah (Pop)
+          // Animasi Pecah
           playSound('pop');
           for (let c = 0; c < COLS; c++) {
             for (let r = 0; r < ROWS; r++) {
               const cell = gridData[c][r];
-              if (cell && cell.type === 'oshi' && matchedOshiIds.some(m => m.id === cell.id)) {
+              if (cell && cell.type === 'oshi' && matchedOshi.some(m => m.id === cell.id)) {
                 const domCell = document.getElementById(`cell-${c}-${r}`);
-                if (domCell) {
-                  domCell.classList.add('anim-pop');
-                }
+                if (domCell) domCell.classList.add('anim-pop');
               }
             }
           }
 
-          // Munculkan Floating Score di tengah grid
-          showFloatingPoints(`+${pointsEarnedThisTumble} Poin!`);
+          showFloatingPoints(`+${pointsGained.toLocaleString('id-ID')}`);
 
-          await wait(400); // Waktu animasi pop
+          const popDelay = isTurbo ? 100 : (isQuick ? 180 : 360);
+          await wait(popDelay);
 
-          // Hapus item yang pecah dari data grid (Simbol Lightstick TIDAK ikut pecah)
+          // Hapus sel yang pecah (Lightstick & Scatter TIDAK ikut pecah)
           for (let c = 0; c < COLS; c++) {
             for (let r = 0; r < ROWS; r++) {
               const cell = gridData[c][r];
-              if (cell && cell.type === 'oshi' && matchedOshiIds.some(m => m.id === cell.id)) {
+              if (cell && cell.type === 'oshi' && matchedOshi.some(m => m.id === cell.id)) {
                 gridData[c][r] = null;
               }
             }
           }
 
-          // Proses Gravitasi & Jatuhkan Simbol Baru di Atasnya
+          // Runtuhkan kolom ke bawah dan isi sel kosong dari atas
           for (let c = 0; c < COLS; c++) {
-            // Ambil simbol yang tersisa di kolom (termasuk Lightstick)
             const remaining = gridData[c].filter(item => item !== null);
             const emptySlots = ROWS - remaining.length;
-            
-            // Buat simbol baru untuk mengisi bagian atas
             const newItems = [];
             for (let i = 0; i < emptySlots; i++) {
               newItems.push(generateRandomSymbol());
             }
-
-            // Kolom baru = item baru di atas + item lama yang turun ke bawah
             gridData[c] = [...newItems, ...remaining];
           }
 
           renderGrid(true);
           playSound('drop');
-          await wait(380); // Waktu animasi drop selesai
+          await wait(dropDelay);
 
         } else {
-          // Tidak ada lagi Oshi berjumlah >= 8
           hasMatches = false;
         }
       }
 
-      // Langkah 3: Evaluasi Lightstick Multiplier di Akhir Tumble
+      // 3. Evaluasi Lightstick Multiplier di Akhir Spin
       await evaluateMultipliers();
 
-      // Langkah 4: Selesai Spin, Buka Kunci UI
+      // Cek status Encore
+      if (isEncoreMode && encoreSpinsLeft <= 0) {
+        endEncoreConcert();
+      }
+
       isSpinning = false;
-      document.getElementById('btn-spin').disabled = false;
-      document.getElementById('game-status-text').innerText = 'Klik SPIN OSHI untuk konser berikutnya!';
+      updateMainButtonUI();
+
+      // Jalankan Auto Spin Berikutnya jika masih aktif
+      if (isAutoRunning) {
+        autoSpinRemaining--;
+        updateAutoBadge();
+        if (autoSpinRemaining > 0) {
+          const autoDelay = isTurbo ? 150 : (isQuick ? 350 : 700);
+          setTimeout(executeSingleSpin, autoDelay);
+        } else {
+          stopAutoSpins();
+        }
+      }
     }
 
     /* --------------------------------------------------------------------------
-       8. EVALUASI LIGHTSTICK MULTIPLIER & SKOR AKHIR
+       8. EVALUASI MULTIPLIER & ENCORE FREE SPINS
        -------------------------------------------------------------------------- */
     async function evaluateMultipliers() {
       if (currentSpinPoints <= 0) return;
 
-      // Cari semua Lightstick di papan
       let totalMultiplier = 0;
-      let lightstickCells = [];
+      let lightsticksFound = [];
 
       for (let c = 0; c < COLS; c++) {
         for (let r = 0; r < ROWS; r++) {
           const item = gridData[c][r];
           if (item && item.type === 'lightstick') {
             totalMultiplier += item.multiplier;
-            lightstickCells.push({ c, r, val: item.multiplier });
+            lightsticksFound.push({ c, r, val: item.multiplier });
           }
         }
       }
 
-      // Jika ada perolehan poin dan ada lightstick
       if (totalMultiplier > 0) {
         playSound('multiplier');
 
-        // Tampilkan Banner Multiplier Besar
         const banner = document.getElementById('multiplier-banner');
         document.getElementById('mult-banner-val').innerText = totalMultiplier;
         banner.classList.add('show');
 
-        // Animasi Kilau pada Sel Lightstick
-        lightstickCells.forEach(ls => {
+        lightsticksFound.forEach(ls => {
           const dom = document.getElementById(`cell-${ls.c}-${ls.r}`);
           if (dom) {
             dom.style.boxShadow = '0 0 25px #ffe600';
@@ -1151,30 +1450,132 @@
           }
         });
 
-        await wait(1200);
+        const bannerWait = isTurbo ? 500 : (isQuick ? 800 : 1200);
+        await wait(bannerWait);
         banner.classList.remove('show');
 
-        // Kalikan total poin
-        const finalWinPoints = currentSpinPoints * totalMultiplier;
-        currentSpinPoints = finalWinPoints;
-        updateSpinPointsDisplay(finalWinPoints);
+        currentSpinPoints = currentSpinPoints * totalMultiplier;
+        updateSpinPointsDisplay(currentSpinPoints);
         playSound('win');
       }
 
-      // Tambahkan ke Total Poin Fandom
       totalFandomPoints += currentSpinPoints;
-      updateTotalPointsDisplay(totalFandomPoints);
+      updateTotalPointsDisplay();
+    }
+
+    function triggerEncoreConcert() {
+      isEncoreMode = true;
+      encoreSpinsLeft = 10;
+      document.getElementById('encore-banner').style.display = 'block';
+      document.getElementById('encore-spins-left').innerText = encoreSpinsLeft;
+      playSound('win');
+      alert("🎉 SELAMAT! Anda Membuka 10 Putaran Gratis ENCORE CONCERT! 🎉");
+    }
+
+    function endEncoreConcert() {
+      isEncoreMode = false;
+      document.getElementById('encore-banner').style.display = 'none';
+      alert("✨ Konser Encore Selesai! Skor dimasukkan ke Total Poin Fandom.");
     }
 
     /* --------------------------------------------------------------------------
-       9. UI HELPERS & NOTIFIKASI
+       9. SISTEM AUTO SPIN & MODAL CONTROLS
+       -------------------------------------------------------------------------- */
+    function handleMainSpinClick() {
+      if (isAutoRunning) {
+        stopAutoSpins();
+      } else {
+        executeSingleSpin();
+      }
+    }
+
+    function openAutoModal() {
+      if (isSpinning || isAutoRunning) return;
+      document.getElementById('auto-modal').classList.add('open');
+    }
+
+    function closeAutoModal() {
+      document.getElementById('auto-modal').classList.remove('open');
+    }
+
+    function toggleModalOption(option) {
+      if (option === 'turbo') {
+        isTurbo = !isTurbo;
+        if (isTurbo) isQuick = false;
+      } else if (option === 'quick') {
+        isQuick = !isQuick;
+        if (isQuick) isTurbo = false;
+      } else if (option === 'skip') {
+        isSkipScreen = !isSkipScreen;
+        document.getElementById('tog-skip').classList.toggle('checked', isSkipScreen);
+      }
+      updateSpeedButtonsUI();
+    }
+
+    function updateSliderLabel(val) {
+      document.getElementById('slider-val-badge').innerText = val;
+      document.getElementById('btn-auto-val-label').innerText = val;
+    }
+
+    function startAutoSpinsFromModal() {
+      const count = parseInt(document.getElementById('auto-spin-slider').value);
+      closeAutoModal();
+      startAutoSpins(count);
+    }
+
+    function startAutoSpins(count) {
+      autoSpinRemaining = count;
+      isAutoRunning = true;
+      updateAutoBadge();
+      updateMainButtonUI();
+      executeSingleSpin();
+    }
+
+    function stopAutoSpins() {
+      isAutoRunning = false;
+      autoSpinRemaining = 0;
+      updateAutoBadge();
+      updateMainButtonUI();
+    }
+
+    function updateAutoBadge() {
+      const badge = document.getElementById('auto-count-badge');
+      if (isAutoRunning) {
+        badge.innerText = `${autoSpinRemaining}`;
+        document.getElementById('btn-auto-modal').classList.add('active');
+      } else {
+        badge.innerText = 'OFF';
+        document.getElementById('btn-auto-modal').classList.remove('active');
+      }
+    }
+
+    function updateMainButtonUI() {
+      const btn = document.getElementById('btn-spin-main');
+      const icon = document.getElementById('spin-icon-display');
+      const text = document.getElementById('spin-text-display');
+
+      if (isAutoRunning) {
+        btn.classList.add('btn-stop');
+        btn.disabled = false;
+        icon.innerText = '⏹';
+        text.innerText = 'STOP';
+      } else {
+        btn.classList.remove('btn-stop');
+        btn.disabled = isSpinning;
+        icon.innerText = '⟳';
+        text.innerText = 'SPIN';
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       10. UI HELPERS & NOTIFIKASI
        -------------------------------------------------------------------------- */
     function updateSpinPointsDisplay(val) {
       document.getElementById('spin-points-display').innerText = `💖 +${val.toLocaleString('id-ID')}`;
     }
 
-    function updateTotalPointsDisplay(val) {
-      document.getElementById('total-points-display').innerText = `⭐ ${val.toLocaleString('id-ID')}`;
+    function updateTotalPointsDisplay() {
+      document.getElementById('total-points-display').innerText = `⭐ ${totalFandomPoints.toLocaleString('id-ID')}`;
     }
 
     function showFloatingPoints(text) {
@@ -1185,19 +1586,11 @@
       floater.style.left = '50%';
       floater.style.top = '45%';
       arena.appendChild(floater);
-
-      setTimeout(() => {
-        floater.remove();
-      }, 800);
+      setTimeout(() => floater.remove(), 800);
     }
 
-    function openRules() {
-      document.getElementById('rules-modal').classList.add('open');
-    }
-
-    function closeRules() {
-      document.getElementById('rules-modal').classList.remove('open');
-    }
+    function openRules() { document.getElementById('rules-modal').classList.add('open'); }
+    function closeRules() { document.getElementById('rules-modal').classList.remove('open'); }
   </script>
 </body>
 </html>
